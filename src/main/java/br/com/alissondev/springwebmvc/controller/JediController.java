@@ -21,8 +21,7 @@ public class JediController {
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("jedi");
 
-        final Jedi luke = new Jedi("Luke", "Skywalker");
-        modelAndView.addObject("allJedi", List.of(luke));
+        modelAndView.addObject("allJedi", jediRepository.getAllJedi());
 
         return modelAndView;
     }
