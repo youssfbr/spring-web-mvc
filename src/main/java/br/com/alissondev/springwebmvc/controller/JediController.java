@@ -3,12 +3,16 @@ package br.com.alissondev.springwebmvc.controller;
 import br.com.alissondev.springwebmvc.model.Jedi;
 import br.com.alissondev.springwebmvc.repository.JediRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.naming.Binding;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -39,7 +43,11 @@ public class JediController {
     }
 
     @PostMapping("/jedi")
-    public String createJedi(@ModelAttribute Jedi jedi) {
+    public String createJedi(@Valid @ModelAttribute Jedi jedi, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "new-jedi";
+        }
 
         jediRepository.add(jedi);
 
