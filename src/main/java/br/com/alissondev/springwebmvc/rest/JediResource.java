@@ -1,14 +1,12 @@
 package br.com.alissondev.springwebmvc.rest;
 
-import br.com.alissondev.springwebmvc.exception.JediNotFoundException;
 import br.com.alissondev.springwebmvc.model.Jedi;
 import br.com.alissondev.springwebmvc.repository.JediRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +30,12 @@ public class JediResource {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/api/jedi")
+    public Jedi createJedi(@Valid @RequestBody Jedi jedi) {
+
+        return repository.save(jedi);
     }
 
 }
