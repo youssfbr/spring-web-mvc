@@ -2,6 +2,7 @@ package br.com.alissondev.springwebmvc.rest;
 
 import br.com.alissondev.springwebmvc.model.Jedi;
 import br.com.alissondev.springwebmvc.repository.JediRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,19 @@ public class JediResource {
             return ResponseEntity.ok(repository.save(jedi));
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/api/jedi/{id}")
+    public ResponseEntity<Void> deleteJedi(@PathVariable("id") Long id) {
+
+        final Optional<Jedi> jedi = repository.findById(id);
+
+        if (jedi.isPresent()) {
+            repository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound() .build();
         }
     }
 
