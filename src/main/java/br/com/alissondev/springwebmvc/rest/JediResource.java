@@ -9,38 +9,39 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/jedi")
 public class JediResource {
 
     @Autowired
     private JediService service;
 
-    @GetMapping("/api/jedi")
+    @GetMapping
     public List<Jedi> getAllJedi() {
 
         return service.findAll();
     }
 
-    @GetMapping("/api/jedi/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Jedi> getJedi(@PathVariable("id") Long id) {
         final Jedi jedi = service.findById(id);
 
         return ResponseEntity.ok(jedi);
     }
 
-    @PostMapping("/api/jedi")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Jedi createJedi(@Valid @RequestBody Jedi jedi) {
 
         return service.save(jedi);
     }
 
-    @PutMapping("/api/jedi/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Jedi> updateJedi(@PathVariable("id") Long id, @Valid @RequestBody Jedi jedi) {
 
         return ResponseEntity.ok(service.update(id, jedi));
     }
 
-    @DeleteMapping("/api/jedi/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteJedi(@PathVariable("id") Long id) {
 
