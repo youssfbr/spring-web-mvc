@@ -13,7 +13,7 @@ public class Jedi {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //@Size(min = 3, max = 10, message = "Nome deve conter entre 3 e 10 caracteres")
+    @Size(min = 3, max = 20, message = "Nome deve conter entre 3 e 20 caracteres")
     @NotBlank(message = "Nome não pode estar em branco")
     @Column(name = "name")
     private String name;
